@@ -1,0 +1,12 @@
+{% extends "admin/layout.html" %}
+
+{% block main %}
+  <div class="ui center aligned container">
+    <h2>Вы действительно хотите удалить пользователя "{{ name }}"?</h2>
+    <form action="/admin/users/delete/{{ id }}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <button type="submit" class="ui positive button">Да</button>
+        <a href="/" class="ui negative button">Нет</a>
+    </form>
+  </div>
+{% endblock %}

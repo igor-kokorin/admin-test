@@ -1,0 +1,45 @@
+{% extends "admin/layout.html" %}
+
+{% block main %}
+  <div class="ui container"><a class="ui primary button" href="/admin/users/create">Создать</a></div>
+
+  {% if users.length %}
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Роль</th>
+          <th>Заблокирован</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.getRole() }}</td>
+            <td>{{ "Да" if user.locked else "Нет" }}</td>
+            <td>
+              <div class="ui icon top left pointing dropdown button">
+                <i class="wrench icon"></i>
+                <div class="menu">
+                  <a class="item" href="/admin/users/edit/{{user.id}}"><i class="edit icon"></i>Редактировать</a>
+                  <a class="item" href="/admin/users/delete/{{user.id}}"><i class="delete icon"></i>Удалить</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h2>В данный момент нет ни одного пользователя</h2>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="/static/js/admin/users/list.js"></script>
+{% endblock %}
+
+</body>
+</html>

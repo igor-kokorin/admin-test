@@ -1,0 +1,57 @@
+{% extends "admin/layout.html" %}
+
+{% block main %}
+  <div class="ui container">
+    {% if errorMessage %}
+      <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="header">
+          {{ errorMessage }}
+        </div>  
+      </div>
+    {% endif %}
+
+    <div class="ui basic segment">
+      <form class="ui form" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+        <div class="field">
+          <label name="name">Имя</label>
+          <input type="text" id="name" name="name" value="{{ name }}">
+        </div>
+        <div class="field">
+          <label name="password">Пароль</label>
+          <input type="password" id="password" name="password" value="{{ password }}">
+        </div>
+        <div class="field">
+          <label name="passwordConfirmation">Подтвердите пароль</label>
+          <input type="password" id="passwordConfirmation" name="passwordConfirmation" value="{{ passwordConfirmation }}">
+        </div>
+        <div class="field">
+          <label name="role">Роль</label>
+          <select name="role" class="ui dropdown">
+            {% for value, label in availableRoles %}
+              <option value="{{ value }}" {% if role == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>        
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input type="checkbox" name="locked" tabindex="0" class="hidden" {% if locked %}checked{% endif %}>
+            <label>Заблокирован</label>
+          </div>
+        </div>
+
+        <button class="ui primary button" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="/static/js/admin/users/create.js"></script>
+{% endblock %}
+
+</body>
+</html>
