@@ -12,15 +12,18 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const { login: name, password } = req.body;
+  const formData = {
+    login: (req.body.login || '').trim(),
+    password: req.body.password
+  };
 
   const user = await User.findOne({
     where: {
-      name
+      name: formData.login
     }
   });
 
-  if (!user || !(await user.checkPassword(password))) {
+  if (!user || !(await user.checkPassword(formData.password))) {
     res.redirect('/auth/login');
     return;
   }

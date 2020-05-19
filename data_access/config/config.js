@@ -9,7 +9,6 @@ module.exports = {
     'database': DB_NAME,
     'host': DB_HOST,
     'port': DB_PORT,
-    'dialect': 'postgres',
-    'operatorsAliases': false
+    'dialect': 'postgres'
   }
 };

@@ -4,6 +4,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const user = User.build({ name: 'admin', role: 'admin', locked: false });
 
+    if (await User.findOne({ where: { name: 'admin' } })) {
+      return;
+    }
+
     await user.setPassword('password');
 
     await user.save();

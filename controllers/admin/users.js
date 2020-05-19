@@ -24,7 +24,7 @@ app.get('/create', (req, res) => {
 
 app.post('/create', async (req, res) => {
   const formData = {
-    name: req.body.name,
+    name: (req.body.name || '').trim(),
     password: req.body.password,
     passwordConfirmation: req.body.passwordConfirmation,
     locked: req.body.locked === 'on',
@@ -77,7 +77,7 @@ app.get('/edit/:id', async (req, res) => {
 
 app.post('/edit/:id', async (req, res) => {
   const formData = {
-    name: req.body.name,
+    name: (req.body.name || '').trim(),
     password: req.body.password,
     passwordConfirmation: req.body.passwordConfirmation,
     locked: req.body.locked === 'on',
